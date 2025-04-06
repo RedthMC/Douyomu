@@ -1,0 +1,9 @@
+{
+    "decks": [
+        {
+            "url": "https://raw.githubusercontent.com/Redth/Douyomu/refs/heads/master/resources/decks/n5.json",
+            "name": "N5",
+            "description": "N5 Words from JLPT"
+        }
+    ]
+}
