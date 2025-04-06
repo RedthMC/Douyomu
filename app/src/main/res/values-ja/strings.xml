@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">どう読む</string>
+    <string name="delete">削除</string>
+    <string name="word">単語</string>
+    <string name="furigana">振り仮名</string>
+    <string name="more_options">その他…</string>
+    <string name="confirm">確定</string>
+    <string name="no_cards">カードなし</string>
+    <string name="export">書き出し</string>
+    <string name="import_deck">読み込み</string>
+    <string name="new_deck">"新しいデッキ "</string>
+    <string name="add">追加</string>
+    <string name="name_default">デフォルト</string>
+    <string name="decks">"デッキ "</string>
+    <string name="unnamed">未命名</string>
+</resources>
