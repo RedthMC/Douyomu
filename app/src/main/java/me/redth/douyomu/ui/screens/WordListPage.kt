@@ -385,7 +385,6 @@ fun DeckMoreDropdown(currentDeck: Deck, viewModel: CardViewModel) {
                 onClick = {
                     expanded = false
                     openConfirmDeleteDialog()
-//                    viewModel.delete(currentDeck) // TODO confirm dialog
                 }
             )
         }
