@@ -12,5 +12,5 @@ data class ExportedDeck(
 @Serializable
 data class ExportedCard(
     val word: String,
-    val furigana: String,
+    val pronunciation: String,
 )

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Card::class, Deck::class], version = 4)
+@Database(entities = [Card::class, Deck::class], version = 5)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cardDao(): CardDao
 
@@ -26,6 +26,7 @@ abstract class AppDatabase : RoomDatabase() {
                     .addMigrations(MIGRATION_1_2)
                     .addMigrations(MIGRATION_2_3)
                     .addMigrations(MIGRATION_3_4)
+                    .addMigrations(MIGRATION_4_5)
                     .build()
                 INSTANCE = instance
                 instance
@@ -118,5 +119,33 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
         db.execSQL("ALTER TABLE cards_new RENAME TO cards")
     }
 }
+
+val MIGRATION_4_5 = object : Migration(4, 5) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        // 1. Create new table with updated column names
+        db.execSQL("""
+            CREATE TABLE cards_new (
+                id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                deckId INTEGER NOT NULL,
+                word TEXT NOT NULL,
+                pronunciation TEXT NOT NULL,
+                FOREIGN KEY(deckId) REFERENCES decks(id) ON DELETE CASCADE
+            )
+        """)
+
+        // 2. Copy data from old table
+        db.execSQL("""
+            INSERT INTO cards_new (id, deckId, word, pronunciation)
+            SELECT id, deckId, word, furigana FROM cards
+        """)
+
+        // 3. Drop old table
+        db.execSQL("DROP TABLE cards")
+
+        // 4. Rename new table
+        db.execSQL("ALTER TABLE cards_new RENAME TO cards")
+    }
+}
+
 
 

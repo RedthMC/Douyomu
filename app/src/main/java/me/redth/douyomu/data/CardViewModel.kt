@@ -51,18 +51,18 @@ class CardViewModel(private val application: Application) : AndroidViewModel(app
     fun deckCount() = cardDao.deckCount()
     fun activatedDeckCount() = cardDao.activatedDeckCount()
 
-    fun add(deck: Deck, word: String, furigana: String) = viewModelScope.launch {
+    fun add(deck: Deck, word: String, pronunciation: String) = viewModelScope.launch {
         cardDao.insert(
             Card(
                 deckId = deck.id,
                 word = word,
-                furigana = furigana,
+                pronunciation = pronunciation,
             )
         )
     }
 
-    fun edit(card: Card, word: String, furigana: String) = viewModelScope.launch {
-        cardDao.update(card.copy(word = word, furigana = furigana))
+    fun edit(card: Card, word: String, pronunciation: String) = viewModelScope.launch {
+        cardDao.update(card.copy(word = word, pronunciation = pronunciation))
     }
 
     fun rename(deck: Deck, name: String) = viewModelScope.launch {
@@ -90,7 +90,7 @@ class CardViewModel(private val application: Application) : AndroidViewModel(app
                 cards = cards.map {
                     ExportedCard(
                         word = it.word,
-                        furigana = it.furigana,
+                        pronunciation = it.pronunciation,
                     )
                 }
             )
@@ -122,7 +122,7 @@ class CardViewModel(private val application: Application) : AndroidViewModel(app
                     Card(
                         deckId = deckId,
                         word = it.word,
-                        furigana = it.furigana,
+                        pronunciation = it.pronunciation,
                     )
                 )
             }
@@ -146,7 +146,7 @@ class CardViewModel(private val application: Application) : AndroidViewModel(app
                     Card(
                         deckId = deckId,
                         word = it.word,
-                        furigana = it.furigana,
+                        pronunciation = it.pronunciation,
                     )
                 )
             }

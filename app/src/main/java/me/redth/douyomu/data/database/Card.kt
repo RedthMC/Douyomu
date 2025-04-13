@@ -19,5 +19,5 @@ data class Card(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val deckId: Int,
     val word: String,
-    val furigana: String
+    val pronunciation: String
 )

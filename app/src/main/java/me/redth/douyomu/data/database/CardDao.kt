@@ -46,7 +46,7 @@ interface CardDao {
     @Query("SELECT * FROM cards WHERE deckId = :deckId")
     fun getCardsForDeck(deckId: Int): Flow<List<Card>>
 
-    @Query("SELECT * FROM cards WHERE word LIKE '%' || :keyword || '%' OR furigana LIKE '%' || :keyword || '%'")
+    @Query("SELECT * FROM cards WHERE word LIKE '%' || :keyword || '%' OR pronunciation LIKE '%' || :keyword || '%'")
     fun searchForCards(keyword: String): Flow<List<Card>>
 
     @Query("SELECT * FROM cards WHERE deckId = :deckId")

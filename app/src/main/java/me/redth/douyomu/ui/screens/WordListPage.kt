@@ -412,10 +412,10 @@ fun WordCard(card: Card, viewModel: CardViewModel) {
                 .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            key(card.furigana) {
+            key(card.pronunciation) {
                 var scale by remember { mutableFloatStateOf(1f) }
                 Text(
-                    text = card.furigana,
+                    text = card.pronunciation,
                     fontWeight = FontWeight.Normal,
                     fontSize = TextUnit(32F, TextUnitType.Sp) * scale,
                     softWrap = false,
@@ -457,13 +457,13 @@ fun WordCard(card: Card, viewModel: CardViewModel) {
 fun CustomDialog(
     title: String,
     initialWord: String = "",
-    initialFurigana: String = "",
+    initialPronunciation: String = "",
     onConfirm: (String, String) -> Unit,
     onDismiss: () -> Unit,
     onDelete: (() -> Unit)? = null,
 ) {
     var word by remember { mutableStateOf(initialWord) }
-    var furigana by remember { mutableStateOf(initialFurigana) }
+    var pronunciation by remember { mutableStateOf(initialPronunciation) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -500,11 +500,11 @@ fun CustomDialog(
                     singleLine = true,
                 )
                 TextField(
-                    value = furigana,
-                    onValueChange = { furigana = it },
-                    label = { Text(stringResource(R.string.furigana)) },
+                    value = pronunciation,
+                    onValueChange = { pronunciation = it },
+                    label = { Text(stringResource(R.string.pronunciation)) },
                     modifier = Modifier.fillMaxWidth(),
-                    isError = furigana.isBlank(),
+                    isError = pronunciation.isBlank(),
                     textStyle = MaterialTheme.typography.titleLarge,
                     singleLine = true,
                 )
@@ -512,9 +512,9 @@ fun CustomDialog(
         },
         confirmButton = {
             Button(
-                enabled = word.isNotBlank() && furigana.isNotBlank(),
+                enabled = word.isNotBlank() && pronunciation.isNotBlank(),
                 onClick = {
-                    onConfirm(word.trim(), furigana.trim())
+                    onConfirm(word.trim(), pronunciation.trim())
                 },
             ) {
                 Text(stringResource(R.string.confirm))
@@ -535,9 +535,9 @@ fun dialogOpener(card: Card, viewModel: CardViewModel): () -> Unit {
         CustomDialog(
             title = stringResource(R.string.edit),
             initialWord = card.word,
-            initialFurigana = card.furigana,
-            onConfirm = { word, furigana ->
-                viewModel.edit(card, word, furigana)
+            initialPronunciation = card.pronunciation,
+            onConfirm = { word, pronunciation ->
+                viewModel.edit(card, word, pronunciation)
                 openDialog = false
             },
             onDelete = {
@@ -557,8 +557,8 @@ fun createNewCardDialogOpener(deck: Deck, viewModel: CardViewModel): () -> Unit 
     if (openDialog) {
         CustomDialog(
             title = stringResource(R.string.add),
-            onConfirm = { word, furigana ->
-                viewModel.add(deck, word, furigana)
+            onConfirm = { word, pronunciation ->
+                viewModel.add(deck, word, pronunciation)
                 openDialog = false
             },
             onDismiss = { openDialog = false },

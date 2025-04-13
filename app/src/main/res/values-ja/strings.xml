@@ -3,7 +3,7 @@
     <string name="app_name">どう読む</string>
     <string name="delete">削除</string>
     <string name="word">単語</string>
-    <string name="furigana">振り仮名</string>
+    <string name="pronunciation">読み方</string>
     <string name="more_options">その他…</string>
     <string name="confirm">確定</string>
     <string name="no_cards">カードなし</string>

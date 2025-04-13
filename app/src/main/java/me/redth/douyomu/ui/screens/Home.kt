@@ -187,7 +187,7 @@ fun QASection(viewModel: CardViewModel) {
     }
 
     fun onSubmit() {
-        if (textFieldInput.trim() == word?.furigana) {
+        if (textFieldInput.trim() == word?.pronunciation) {
             word = cards.randomOrNull()
             textFieldInput = ""
             nodding()
@@ -222,18 +222,28 @@ fun QASection(viewModel: CardViewModel) {
         }
 
         var showHint by remember { mutableStateOf(false) }
+
         LaunchedEffect(capturedWord) {
-            showHint = false
+            if (showHint) {
+                showHint = false
+            }
         }
+
         Box(
             contentAlignment = Alignment.TopCenter,
         ) {
-            if (showHint) {
-                key(capturedWord.furigana) {
+            key(capturedWord.pronunciation) {
+                var showHintActually by remember { mutableStateOf(false) } // prevent delayed hide hint
+
+                LaunchedEffect(showHint) {
+                    if (showHint) showHintActually = true
+                }
+
+                if (showHintActually) {
                     var scale by remember { mutableFloatStateOf(1f) }
                     Text(
                         modifier = Modifier.offset(y = (-12).dp),
-                        text = capturedWord.furigana,
+                        text = capturedWord.pronunciation,
                         fontWeight = FontWeight.Normal,
                         fontSize = TextUnit(32F, TextUnitType.Sp) * scale,
                         softWrap = false,
@@ -249,6 +259,7 @@ fun QASection(viewModel: CardViewModel) {
                     )
                 }
             }
+
 
             key(capturedWord.word) {
                 var scale by remember { mutableFloatStateOf(1f) }
@@ -272,7 +283,7 @@ fun QASection(viewModel: CardViewModel) {
         }
 
         TextField(
-            label = { Text(text = stringResource(R.string.furigana)) },
+            label = { Text(text = stringResource(R.string.pronunciation)) },
             value = textFieldInput,
             onValueChange = { textFieldInput = it },
             singleLine = true,

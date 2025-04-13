@@ -105,7 +105,7 @@ fun Modifier.unfocuser() = LocalFocusManager.current.let { focusManager ->
 
 @Composable
 fun AppNavigation(viewModel: CardViewModel) {
-    val pageState = rememberPagerState { 3 }
+    val pageState = rememberPagerState { 4 }
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(pageState.currentPage) {
@@ -147,8 +147,11 @@ fun BottomNavigationBar(pagerState: PagerState) {
                 label = { Text(stringResource(text)) },
                 selected = pagerState.currentPage == page,
                 onClick = {
-                    if (pagerState.currentPage != page) scope.launch {
-                        pagerState.animateScrollToPage(page)
+                    if (pagerState.currentPage != page) {
+                        scope.launch {
+                            pagerState.scrollToPage(page)
+//                        pagerState.animateScrollToPage(page)
+                        }
                     }
                 }
             )
