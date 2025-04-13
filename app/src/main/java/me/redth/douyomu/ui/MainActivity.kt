@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +42,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import me.redth.douyomu.R
 import me.redth.douyomu.data.CardViewModel
+import me.redth.douyomu.ui.screens.BrowsePage
 import me.redth.douyomu.ui.screens.Home
 import me.redth.douyomu.ui.screens.SettingsPage
 import me.redth.douyomu.ui.screens.Theme
@@ -122,7 +124,8 @@ fun AppNavigation(viewModel: CardViewModel) {
             when (it) {
                 0 -> Home(viewModel)
                 1 -> WordListPage(viewModel)
-                2 -> SettingsPage()
+                2 -> BrowsePage(viewModel)
+                3 -> SettingsPage()
             }
         }
     }
@@ -133,6 +136,7 @@ fun BottomNavigationBar(pagerState: PagerState) {
     val items = listOf(
         Icons.Default.Home to R.string.home,
         Icons.AutoMirrored.Filled.List to R.string.word_list,
+        Icons.Default.ShoppingCart to R.string.browse,
         Icons.Default.Settings to R.string.settings,
     )
     val scope = rememberCoroutineScope()

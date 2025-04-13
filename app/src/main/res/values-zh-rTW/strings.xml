@@ -28,4 +28,6 @@
     <string name="cannot_be_undone">此動作無法撤回。</string>
     <string name="hint">提示</string>
     <string name="question_bank">題庫 %1$d/%2$d</string>
+    <string name="browse">瀏覽</string>
+    <string name="import_deck_question">匯入 %1$s?</string>
 </resources>

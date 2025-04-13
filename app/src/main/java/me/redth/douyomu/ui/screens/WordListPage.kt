@@ -76,6 +76,7 @@ import me.redth.douyomu.data.database.Card
 import me.redth.douyomu.data.database.Deck
 import me.redth.douyomu.ui.Loading
 import me.redth.douyomu.ui.components.SlideDownPanel
+import me.redth.douyomu.ui.components.confirmDialogOpener
 import me.redth.douyomu.ui.unfocuser
 import me.redth.douyomu.ui.withState
 
@@ -359,7 +360,10 @@ fun DeckMoreDropdown(currentDeck: Deck, viewModel: CardViewModel) {
         }
     }
 
-    val openConfirmDeleteDialog = confirmDialogOpener(stringResource(R.string.delete_deck_question, currentDeck.name)) {
+    val openConfirmDeleteDialog = confirmDialogOpener(
+        text = stringResource(R.string.delete_deck_question, currentDeck.name),
+        description = stringResource(R.string.cannot_be_undone),
+    ) {
         viewModel.delete(currentDeck)
     }
 
@@ -538,46 +542,6 @@ fun dialogOpener(card: Card, viewModel: CardViewModel): () -> Unit {
             },
             onDelete = {
                 viewModel.delete(card)
-                openDialog = false
-            },
-            onDismiss = { openDialog = false },
-        )
-    }
-    return { openDialog = true }
-}
-
-
-@Composable
-fun ConfirmDialog(
-    title: String,
-    onConfirm: () -> Unit,
-    onDismiss: () -> Unit,
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text(title) },
-        text = {  Text(stringResource(R.string.cannot_be_undone)) },
-        confirmButton = {
-            Button(onClick = onConfirm) {
-                Text(stringResource(R.string.confirm))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(android.R.string.cancel))
-            }
-        }
-    )
-}
-
-@Composable
-fun confirmDialogOpener(text: String, action: () -> Unit): () -> Unit {
-    var openDialog by remember { mutableStateOf(false) }
-    if (openDialog) {
-        ConfirmDialog(
-            title = text,
-            onConfirm = {
-                action()
                 openDialog = false
             },
             onDismiss = { openDialog = false },

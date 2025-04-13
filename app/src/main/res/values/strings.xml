@@ -27,4 +27,6 @@
     <string name="cannot_be_undone">This action cannot be undone.</string>
     <string name="hint">Hint</string>
     <string name="question_bank">Activated Decks %1$d/%2$d</string>
+    <string name="browse">Browse</string>
+    <string name="import_deck_question">Import %1$s?</string>
 </resources>

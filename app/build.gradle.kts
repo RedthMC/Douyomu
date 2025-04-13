@@ -47,6 +47,11 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.datastore.preferences)
 
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio) // or ktor-client-okhttp for Android
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler) // Annotation Processor
     implementation(libs.androidx.room.ktx) // Kotlin Coroutines Support
